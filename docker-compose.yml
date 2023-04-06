@@ -27,3 +27,4 @@ services:
             #- MYSQL_USER=user
         volumes:
             - ../../data/mysql:/var/lib/mysql
+            
