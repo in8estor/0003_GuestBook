@@ -25,7 +25,7 @@ class Conference
     private ?bool $isInternational = null;
 
     #[ORM\OneToMany(mappedBy: 'conference', targetEntity: Comment::class, orphanRemoval: true)]
-    private Collection $comments;
+    private $comments;
 
     public function __construct()
     {
@@ -89,7 +89,7 @@ class Conference
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
+            $this->comments[] = $comment;
             $comment->setConference($this);
         }
 
@@ -98,7 +98,8 @@ class Conference
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getConference() === $this) {
                 $comment->setConference(null);
