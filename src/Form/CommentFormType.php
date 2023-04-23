@@ -39,4 +39,3 @@ class CommentFormType extends AbstractType
         ]);
     }
 }
-
